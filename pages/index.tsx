@@ -70,8 +70,73 @@ const Home: NextPage = () => {
                 </a>
               </Link>
             </div>
+
+            <div className="grid grid-cols-1 divide-y mx-4 sm:mx-0 mt-4">
+               <h4 className="text-lg sm:text-3xl">Lingerie</h4> 
+              <div className='my-2'></div>
+              <div className="snap-mandatory snap-x flex overflow-scroll overflow-y-hidden ">
+                <div className="card snap-center w-80 flex-shrink-0 mr-2">
+                  <figure><img src="https://api.lorem.space/image/shoes?w=400&h=225" alt="Shoes" /></figure>
+                  <div className="card-body">
+                    <h2 className="text-lg font-bold">Shoes!</h2>
+                    <p className='font-light text-sm'>If a dog chews shoes whose shoes does he choose?</p>
+                    <span>R$ 89,90</span>
+                  </div>
+                </div>
+                <div className="card snap-center w-80 flex-shrink-0 mr-2">
+                  <figure><img src="https://api.lorem.space/image/shoes?w=400&h=225" alt="Shoes" /></figure>
+                  <div className="card-body">
+                    <h2 className="text-lg font-bold">Shoes!</h2>
+                    <p className='font-light text-sm'>If a dog chews shoes whose shoes does he choose?</p>
+                    <span>R$ 89,90</span>
+                  </div>
+                </div>
+                <div className="card snap-center w-80 flex-shrink-0 mr-2">
+                  <figure><img src="https://api.lorem.space/image/shoes?w=400&h=225" alt="Shoes" /></figure>
+                  <div className="card-body">
+                    <h2 className="text-lg font-bold">Shoes!</h2>
+                    <p className='font-light text-sm'>If a dog chews shoes whose shoes does he choose?</p>
+                    <span>R$ 89,90</span>
+                  </div>
+                </div>
+                <div className="card snap-center w-80 flex-shrink-0 mr-2">
+                  <figure><img src="https://api.lorem.space/image/shoes?w=400&h=225" alt="Shoes" /></figure>
+                  <div className="card-body">
+                    <h2 className="text-lg font-bold">Shoes!</h2>
+                    <p className='font-light text-sm'>If a dog chews shoes whose shoes does he choose?</p>
+                    <span>R$ 89,90</span>
+                  </div>
+                </div>
+                <div className="card snap-center w-80 flex-shrink-0 mr-2">
+                  <figure><img src="https://api.lorem.space/image/shoes?w=400&h=225" alt="Shoes" /></figure>
+                  <div className="card-body">
+                    <h2 className="text-lg font-bold">Shoes!</h2>
+                    <p className='font-light text-sm'>If a dog chews shoes whose shoes does he choose?</p>
+                    <span>R$ 89,90</span>
+                  </div>
+                </div>
+                <div className="card snap-center w-80 flex-shrink-0 mr-2">
+                  <figure><img src="https://api.lorem.space/image/shoes?w=400&h=225" alt="Shoes" /></figure>
+                  <div className="card-body">
+                    <h2 className="text-lg font-bold">Shoes!</h2>
+                    <p className='font-light text-sm'>If a dog chews shoes whose shoes does he choose?</p>
+                    <span>R$ 89,90</span>
+                  </div>
+                </div>
+                <div className="card snap-center w-80 flex-shrink-0 mr-2">
+                  <figure><img src="https://api.lorem.space/image/shoes?w=400&h=225" alt="Shoes" /></figure>
+                  <div className="card-body">
+                    <h2 className="text-lg font-bold">Shoes!</h2>
+                    <p className='font-light text-sm'>If a dog chews shoes whose shoes does he choose?</p>
+                    <span>R$ 89,90</span>
+                  </div>
+                </div>
+               
+              </div>
+            </div> 
             
         </div>
+        
       </Header>
     </>
   )
