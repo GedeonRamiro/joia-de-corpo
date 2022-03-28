@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import Logo from '../public/images/logo.png'
 import {useRouter} from 'next/router'
+import Footer from './Footer'
 
 type LayoutProps = {
     children: React.ReactNode;
@@ -58,6 +59,7 @@ const Header = ({ children }: LayoutProps) => {
                     </div>
                 </div>
                 {children}
+                <Footer />
             </div> 
             <div className="drawer-side">
                 <label htmlFor="my-drawer-3" className="drawer-overlay"></label> 
