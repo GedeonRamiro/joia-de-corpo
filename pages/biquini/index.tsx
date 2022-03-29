@@ -13,7 +13,7 @@ const Biquini = () => {
             </Head>
             <Header>
             <div className="container mx-auto">
-                <div className='flex justify-center mt-10'>
+                <div className='flex justify-center mt-10 mx-4 sm:mx-0'>
                     <Image src={bannerBiquini} 
                     className=""                     
                     alt='titulo'
