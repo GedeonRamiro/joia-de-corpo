@@ -1,4 +1,4 @@
-import type { NextPage } from 'next'
+import type { GetStaticProps, NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Header from '../components/Header'
@@ -8,41 +8,53 @@ import bannerLingerie from '../public/images/banner lingerie.jpg'
 import bannerPijama from '../public/images/banner-pijama.jpg'
 import Link from 'next/link'
 import { WiDirectionLeft } from 'react-icons/wi'
+import * as prismic from '@prismicio/client'
+import { client } from '../utils/prismic-configuration';
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
 
+type Slides = {
+  id: string,
+  url: string,
+  description: string
+}
 
-const Home: NextPage = () => {
+type ContentPros = {
+  slides: Slides[]
+}
+
+const Home: NextPage<ContentPros> = ( {slides} ) => {
+
+  const [slideActive, setSlideActive] = useState('')
+  console.log(slideActive)
+  
   return (
     <>
       <Head>
        <title>Joia de Corpo</title>
       </Head>
       <Header>
-        <div className="container mx-auto">
+        <div className="container mx-auto">   
             <div className="carousel w-full">
-              <div id="slide1" className="carousel-item relative w-full">
-              <Image src={bannerBiquini} width="1550" height="700" objectFit='cover'></Image>
-                <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-                  <a href="#slide3" className="btn btn-circle border-none  bg-pink-500 hover:bg-pink-300">❮</a> 
-                  <a href="#slide2" className="btn btn-circle border-none bg-pink-500 hover:bg-pink-300">❯</a>
-                </div>
-              </div> 
-              <div id="slide2" className="carousel-item relative w-full">
-              <Image src={bannerLingerie} width="1550" height="700" objectFit='cover'></Image>
-                <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-                  <a href="#slide1" className="btn btn-circle border-none bg-pink-500 hover:bg-pink-300">❮</a> 
-                  <a href="#slide3" className="btn btn-circle border-none bg-pink-500 hover:bg-pink-300">❯</a>
-                </div>
-              </div> 
-              <div id="slide3" className="carousel-item relative w-full">
-              <Image src={bannerPijama} width="1550" height="700" objectFit='cover'></Image>
-                <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-                  <a href="#slide2" className="btn btn-circle border-none bg-pink-500 hover:bg-pink-300">❮</a> 
-                  <a href="#slide1" className="btn btn-circle border-none bg-pink-500 hover:bg-pink-300">❯</a>
-                </div>
-              </div> 
+              {slides.map((slide, index) =>(
+                 <div id={`item${index + 1}`} className="carousel-item w-full" key={slide.id}>
+                     <Image src={slide.url} alt={slide.description} width="1550" height="700" objectFit='cover'></Image>
+                 </div> 
+              ))}
+            </div>
+            <div className="flex justify-center w-full py-2 gap-2">
+               {slides.map((slide, index) =>(
+                  <a 
+                    onClick={() => setSlideActive(`#item${index + 1}`)} 
+                    href={`#item${index + 1}`} 
+                    key={slide.id} 
+                    className={`btn btn-xs sm:btn-sm btn-circle ${slideActive === `#item${index + 1}` ?  'bg-pink-400 border-pink-300 border-2' : ''} `}>
+                      {index + 1}
+                  </a> 
+                ))}
             </div>
 
-            <div className="grid gap-4 my-6 mx-4 sm:mx-0 sm:grid-cols-1 md:grid-cols-3 ">
+            <div className="grid gap-4 my-0 sm:my-6 mx-4 sm:mx-0 sm:grid-cols-1 md:grid-cols-3 ">
               <Link href={'/biquini'}>
                 <a className="border-b rounded-lg bg-gradient-to-r from-pink-400 to-pink-300 shadow-sm">
                   <Image className='rounded-t-lg' src={bannerBiquini} width="500" height="300" objectFit='cover'></Image>
@@ -345,3 +357,33 @@ const Home: NextPage = () => {
 }
 
 export default Home
+
+export const getStaticProps: GetStaticProps = async () => {
+
+  const resultSlide = await client.query(
+    prismic.Predicates.at('document.type', 'slide')
+  );
+
+  const produto = await client.query(
+    prismic.Predicates.at('document.type', 'produto')
+  );
+
+  const slides = resultSlide.results.map((data) => ({
+    id: data.id,
+    url: data.data.banner.url,
+    description: data.data.descricao,
+
+    }
+  ))
+
+  //console.log('SLIDE', slide);
+  //console.log('PRODUTO', produto.results);
+
+
+  return {
+    props: {
+      slides
+    }
+  }
+
+}
