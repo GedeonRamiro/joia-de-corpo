@@ -44,7 +44,7 @@ const Biquini = () => {
                                         <p className='my-2 text-sm sm:text-base'>{'Camisa azul Polo Azul + Branco - Tamanho G'?.slice(0,50) + '...'}</p>
                                     </div>
                                     <div className="justify-center card-actions mb-4">
-                                        <Link href={`/biquini`}>
+                                        <Link href={`/biquini/biquini-vermelho`}>
                                             <button className="sm:btn-md btn btn-sm bg-pink-400 hover:bg-pink-500 border-none">Comprar</button> 
                                         </Link>
                                     </div>
