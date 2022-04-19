@@ -45,7 +45,6 @@ type ContentPros = {
 const Home: NextPage<ContentPros> = ( {slides, products, evaluations} ) => {
 
   const [slideActive, setSlideActive] = useState('')
-  console.log(slideActive)
 
   return (
     <>
@@ -238,9 +237,6 @@ export const getStaticProps: GetStaticProps = async () => {
     }
   ))
 
-
-  console.log(resultEvaluation);
-  console.log('evaluation', evaluations);
 
 
   return {
