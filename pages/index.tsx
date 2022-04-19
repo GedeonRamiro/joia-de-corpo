@@ -2,7 +2,6 @@ import type { GetStaticProps, NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Header from '../components/Header'
-import Footer from '../components/Footer'
 import bannerBiquini from '../public/images/banner-biquini.png'
 import bannerLingerie from '../public/images/banner lingerie.jpg'
 import bannerPijama from '../public/images/banner-pijama.jpg'
@@ -10,8 +9,7 @@ import Link from 'next/link'
 import { WiDirectionLeft } from 'react-icons/wi'
 import * as prismic from '@prismicio/client'
 import { client } from '../utils/prismic-configuration';
-import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 type Slides = {
   id: string,
@@ -19,15 +17,36 @@ type Slides = {
   description: string
 }
 
-type ContentPros = {
-  slides: Slides[]
+type Products = {
+  id: string
+  slug: string
+  image: string
+  name: string
+  description: string
+  price: string
+  category: string
 }
 
-const Home: NextPage<ContentPros> = ( {slides} ) => {
+type Evaluations = {
+    id: string
+    image: string
+    name: string
+    description: string
+    updateAt: string
+}
+
+
+type ContentPros = {
+  slides: Slides[]
+  products: Products[]
+  evaluations: Evaluations[]
+}
+
+const Home: NextPage<ContentPros> = ( {slides, products, evaluations} ) => {
 
   const [slideActive, setSlideActive] = useState('')
   console.log(slideActive)
-  
+
   return (
     <>
       <Head>
@@ -88,191 +107,50 @@ const Home: NextPage<ContentPros> = ( {slides} ) => {
               <h4 className="text-lg sm:text-3xl">Biquíni</h4> 
               <div className='mb-4 mt-1 border border-b-gray-200'></div>
               <div className="snap-mandatory snap-x flex overflow-scroll overflow-y-hidden ">
-                <div className="card snap-center w-80 flex-shrink-0 mr-2">
-                  <figure><img src="https://api.lorem.space/image/shoes?w=400&h=225" alt="Shoes" /></figure>
-                  <div className="card-body">
-                    <h2 className="text-lg font-bold">Shoes!</h2>
-                    <p className='font-light text-sm'>If a dog chews shoes whose shoes does he choose?</p>
-                    <span>R$ 89,90</span>
-                  </div>
-                </div>
-                <div className="card snap-center w-80 flex-shrink-0 mr-2">
-                  <figure><img src="https://api.lorem.space/image/shoes?w=400&h=225" alt="Shoes" /></figure>
-                  <div className="card-body">
-                    <h2 className="text-lg font-bold">Shoes!</h2>
-                    <p className='font-light text-sm'>If a dog chews shoes whose shoes does he choose?</p>
-                    <span>R$ 89,90</span>
-                  </div>
-                </div>
-                <div className="card snap-center w-80 flex-shrink-0 mr-2">
-                  <figure><img src="https://api.lorem.space/image/shoes?w=400&h=225" alt="Shoes" /></figure>
-                  <div className="card-body">
-                    <h2 className="text-lg font-bold">Shoes!</h2>
-                    <p className='font-light text-sm'>If a dog chews shoes whose shoes does he choose?</p>
-                    <span>R$ 89,90</span>
-                  </div>
-                </div>
-                <div className="card snap-center w-80 flex-shrink-0 mr-2">
-                  <figure><img src="https://api.lorem.space/image/shoes?w=400&h=225" alt="Shoes" /></figure>
-                  <div className="card-body">
-                    <h2 className="text-lg font-bold">Shoes!</h2>
-                    <p className='font-light text-sm'>If a dog chews shoes whose shoes does he choose?</p>
-                    <span>R$ 89,90</span>
-                  </div>
-                </div>
-                <div className="card snap-center w-80 flex-shrink-0 mr-2">
-                  <figure><img src="https://api.lorem.space/image/shoes?w=400&h=225" alt="Shoes" /></figure>
-                  <div className="card-body">
-                    <h2 className="text-lg font-bold">Shoes!</h2>
-                    <p className='font-light text-sm'>If a dog chews shoes whose shoes does he choose?</p>
-                    <span>R$ 89,90</span>
-                  </div>
-                </div>
-                <div className="card snap-center w-80 flex-shrink-0 mr-2">
-                  <figure><img src="https://api.lorem.space/image/shoes?w=400&h=225" alt="Shoes" /></figure>
-                  <div className="card-body">
-                    <h2 className="text-lg font-bold">Shoes!</h2>
-                    <p className='font-light text-sm'>If a dog chews shoes whose shoes does he choose?</p>
-                    <span>R$ 89,90</span>
-                  </div>
-                </div>
-                <div className="card snap-center w-80 flex-shrink-0 mr-2">
-                  <figure><img src="https://api.lorem.space/image/shoes?w=400&h=225" alt="Shoes" /></figure>
-                  <div className="card-body">
-                    <h2 className="text-lg font-bold">Shoes!</h2>
-                    <p className='font-light text-sm'>If a dog chews shoes whose shoes does he choose?</p>
-                    <span>R$ 89,90</span>
-                  </div>
-                </div>
-               
+                {products.filter(product => product.category === 'Biquini').map(product => (
+                   <div key={product.id} className="card snap-center w-80 flex-shrink-0 mr-2">
+                    <figure><Image src={product.image} alt={product.name} width="320" height="180" objectFit='cover' /></figure>
+                    <div className="card-body">
+                      <h2 className="text-base font-bold">{product.name}</h2>
+                      <p className='font-light text-sm'>{product.description ?.slice(0,50) + '...'}</p>
+                      <span>R$ {product.price}</span>
+                    </div>
+                 </div>
+                ))}     
               </div>
             </div> 
 
             <div className="grid grid-cols-1 mx-4 sm:mx-0 mt-4">
-              <h4 className="text-lg sm:text-3xl">Lingerie</h4> 
+              <h4 className="text-base sm:text-3xl">Lingerie</h4> 
               <div className='mb-4 mt-1 border border-b-gray-200'></div>
               <div className="snap-mandatory snap-x flex overflow-scroll overflow-y-hidden ">
-                <div className="card snap-center w-80 flex-shrink-0 mr-2">
-                  <figure><img src="https://api.lorem.space/image/shoes?w=400&h=225" alt="Shoes" /></figure>
-                  <div className="card-body">
-                    <h2 className="text-lg font-bold">Shoes!</h2>
-                    <p className='font-light text-sm'>If a dog chews shoes whose shoes does he choose?</p>
-                    <span>R$ 89,90</span>
+                {products.filter(product => product.category === 'Lingerie').map(product => (
+                    <div key={product.id} className="card snap-center w-80 flex-shrink-0 mr-2">
+                      <figure><Image src={product.image} alt={product.name} width="320" height="180" objectFit='cover' /></figure>
+                      <div className="card-body">
+                        <h2 className="text-lg font-bold">{product.name}</h2>
+                        <p className='font-light text-sm'>{product.description ?.slice(0,50) + '...'}</p>
+                        <span>R$ {product.price}</span>
+                      </div>
                   </div>
-                </div>
-                <div className="card snap-center w-80 flex-shrink-0 mr-2">
-                  <figure><img src="https://api.lorem.space/image/shoes?w=400&h=225" alt="Shoes" /></figure>
-                  <div className="card-body">
-                    <h2 className="text-lg font-bold">Shoes!</h2>
-                    <p className='font-light text-sm'>If a dog chews shoes whose shoes does he choose?</p>
-                    <span>R$ 89,90</span>
-                  </div>
-                </div>
-                <div className="card snap-center w-80 flex-shrink-0 mr-2">
-                  <figure><img src="https://api.lorem.space/image/shoes?w=400&h=225" alt="Shoes" /></figure>
-                  <div className="card-body">
-                    <h2 className="text-lg font-bold">Shoes!</h2>
-                    <p className='font-light text-sm'>If a dog chews shoes whose shoes does he choose?</p>
-                    <span>R$ 89,90</span>
-                  </div>
-                </div>
-                <div className="card snap-center w-80 flex-shrink-0 mr-2">
-                  <figure><img src="https://api.lorem.space/image/shoes?w=400&h=225" alt="Shoes" /></figure>
-                  <div className="card-body">
-                    <h2 className="text-lg font-bold">Shoes!</h2>
-                    <p className='font-light text-sm'>If a dog chews shoes whose shoes does he choose?</p>
-                    <span>R$ 89,90</span>
-                  </div>
-                </div>
-                <div className="card snap-center w-80 flex-shrink-0 mr-2">
-                  <figure><img src="https://api.lorem.space/image/shoes?w=400&h=225" alt="Shoes" /></figure>
-                  <div className="card-body">
-                    <h2 className="text-lg font-bold">Shoes!</h2>
-                    <p className='font-light text-sm'>If a dog chews shoes whose shoes does he choose?</p>
-                    <span>R$ 89,90</span>
-                  </div>
-                </div>
-                <div className="card snap-center w-80 flex-shrink-0 mr-2">
-                  <figure><img src="https://api.lorem.space/image/shoes?w=400&h=225" alt="Shoes" /></figure>
-                  <div className="card-body">
-                    <h2 className="text-lg font-bold">Shoes!</h2>
-                    <p className='font-light text-sm'>If a dog chews shoes whose shoes does he choose?</p>
-                    <span>R$ 89,90</span>
-                  </div>
-                </div>
-                <div className="card snap-center w-80 flex-shrink-0 mr-2">
-                  <figure><img src="https://api.lorem.space/image/shoes?w=400&h=225" alt="Shoes" /></figure>
-                  <div className="card-body">
-                    <h2 className="text-lg font-bold">Shoes!</h2>
-                    <p className='font-light text-sm'>If a dog chews shoes whose shoes does he choose?</p>
-                    <span>R$ 89,90</span>
-                  </div>
-                </div>
-               
+                  ))}     
               </div>
             </div> 
 
             <div className="grid grid-cols-1 mx-4 sm:mx-0 mt-4">
-              <h4 className="text-lg sm:text-3xl">Pijama</h4> 
+              <h4 className="text-base sm:text-3xl">Pijama</h4> 
               <div className='mb-4 mt-1 border border-b-gray-200'></div>
               <div className="snap-mandatory snap-x flex overflow-scroll overflow-y-hidden ">
-                <div className="card snap-center w-80 flex-shrink-0 mr-2">
-                  <figure><img src="https://api.lorem.space/image/shoes?w=400&h=225" alt="Shoes" /></figure>
-                  <div className="card-body">
-                    <h2 className="text-lg font-bold">Shoes!</h2>
-                    <p className='font-light text-sm'>If a dog chews shoes whose shoes does he choose?</p>
-                    <span>R$ 89,90</span>
+                {products.filter(product => product.category === 'Pijama').map(product => (
+                    <div key={product.id} className="card snap-center w-80 flex-shrink-0 mr-2">
+                      <figure><Image src={product.image} alt={product.name} width="320" height="180" objectFit='cover' /></figure>
+                      <div className="card-body">
+                        <h2 className="text-lg font-bold">{product.name}</h2>
+                        <p className='font-light text-sm'>{product.description ?.slice(0,50) + '...'}</p>
+                        <span>R$ {product.price}</span>
+                      </div>
                   </div>
-                </div>
-                <div className="card snap-center w-80 flex-shrink-0 mr-2">
-                  <figure><img src="https://api.lorem.space/image/shoes?w=400&h=225" alt="Shoes" /></figure>
-                  <div className="card-body">
-                    <h2 className="text-lg font-bold">Shoes!</h2>
-                    <p className='font-light text-sm'>If a dog chews shoes whose shoes does he choose?</p>
-                    <span>R$ 89,90</span>
-                  </div>
-                </div>
-                <div className="card snap-center w-80 flex-shrink-0 mr-2">
-                  <figure><img src="https://api.lorem.space/image/shoes?w=400&h=225" alt="Shoes" /></figure>
-                  <div className="card-body">
-                    <h2 className="text-lg font-bold">Shoes!</h2>
-                    <p className='font-light text-sm'>If a dog chews shoes whose shoes does he choose?</p>
-                    <span>R$ 89,90</span>
-                  </div>
-                </div>
-                <div className="card snap-center w-80 flex-shrink-0 mr-2">
-                  <figure><img src="https://api.lorem.space/image/shoes?w=400&h=225" alt="Shoes" /></figure>
-                  <div className="card-body">
-                    <h2 className="text-lg font-bold">Shoes!</h2>
-                    <p className='font-light text-sm'>If a dog chews shoes whose shoes does he choose?</p>
-                    <span>R$ 89,90</span>
-                  </div>
-                </div>
-                <div className="card snap-center w-80 flex-shrink-0 mr-2">
-                  <figure><img src="https://api.lorem.space/image/shoes?w=400&h=225" alt="Shoes" /></figure>
-                  <div className="card-body">
-                    <h2 className="text-lg font-bold">Shoes!</h2>
-                    <p className='font-light text-sm'>If a dog chews shoes whose shoes does he choose?</p>
-                    <span>R$ 89,90</span>
-                  </div>
-                </div>
-                <div className="card snap-center w-80 flex-shrink-0 mr-2">
-                  <figure><img src="https://api.lorem.space/image/shoes?w=400&h=225" alt="Shoes" /></figure>
-                  <div className="card-body">
-                    <h2 className="text-lg font-bold">Shoes!</h2>
-                    <p className='font-light text-sm'>If a dog chews shoes whose shoes does he choose?</p>
-                    <span>R$ 89,90</span>
-                  </div>
-                </div>
-                <div className="card snap-center w-80 flex-shrink-0 mr-2">
-                  <figure><img src="https://api.lorem.space/image/shoes?w=400&h=225" alt="Shoes" /></figure>
-                  <div className="card-body">
-                    <h2 className="text-lg font-bold">Shoes!</h2>
-                    <p className='font-light text-sm'>If a dog chews shoes whose shoes does he choose?</p>
-                    <span>R$ 89,90</span>
-                  </div>
-                </div>
-               
+                  ))}      
               </div>
             </div> 
 
@@ -280,71 +158,26 @@ const Home: NextPage<ContentPros> = ( {slides} ) => {
               <h4 className="text-center font-semibold">DEPOIMENTOS DE CLIENTES</h4>
 
               <div className="snap-mandatory snap-x flex sm:justify-center overflow-scroll overflow-y-hidden ">
-                <div className="card snap-center flex-shrink-0 mr-2 w-80 border p-4 rounded-lg my-10 mx-4">
-                  <div className="flex items-center">
-                    <div className="avatar">
-                      <div className="w-20 rounded-full ring ring-pink-200 ring-offset-base-100 ring-offset-2">
-                        <img src="https://api.lorem.space/image/face?hash=3174" />
+                
+                {evaluations.map(evaluation => (
+                  <div key={evaluation.id} className="card snap-center flex-shrink-0 mr-2 w-80 border p-4 rounded-lg my-10 mx-4">
+                    <div className="flex items-center">
+                      <div className="avatar">
+                        <div className="w-20 rounded-full ring ring-pink-200 ring-offset-base-100 ring-offset-2">
+                          <Image src={evaluation.image} alt={evaluation.name} width='80' height='80' objectFit='cover' />
+                        </div>
+                      </div>
+                      <div className='ml-4'>
+                        <h2 className='font-semibold'>{evaluation.name}</h2>
+                        <p className='text-sm font-semibold'>{evaluation.updateAt}</p>
                       </div>
                     </div>
-                    <div className='ml-4'>
-                      <h2 className='font-semibold'>Maria das Graças</h2>
-                      <p className='text-sm font-semibold'>21/03/2022</p>
+                    <div className='mt-4'>
+                      <p className='sm:text-base text-sm'>{evaluation.description}</p>
                     </div>
                   </div>
-                  <div className='mt-4'>
-                    <p className='text-base'>Bota Treino Academia Sneaker Fitness Nude em Couro Legítimo</p>
-                  </div>
-                </div>
+                ))}
 
-                <div className="card snap-center flex-shrink-0 mr-2 w-80 border p-4 rounded-lg my-10 mx-4">
-                  <div className="flex items-center">
-                    <div className="avatar">
-                      <div className="w-20 rounded-full ring ring-pink-200 ring-offset-base-100 ring-offset-2">
-                        <img src="https://api.lorem.space/image/face?hash=3174" />
-                      </div>
-                    </div>
-                    <div className='ml-4'>
-                      <h2 className='font-semibold'>Maria das Graças</h2>
-                      <p className='text-sm font-semibold'>21/03/2022</p>
-                    </div>
-                  </div>
-                  <div className='mt-4'>
-                    <p className='text-base'>Bota Treino Academia Sneaker Fitness Nude em Couro Legítimo</p>
-                  </div>
-                </div>
-                <div className="card snap-center flex-shrink-0 mr-2 w-80 border p-4 rounded-lg my-10 mx-4">
-                  <div className="flex items-center">
-                    <div className="avatar">
-                      <div className="w-20 rounded-full ring ring-pink-200 ring-offset-base-100 ring-offset-2">
-                        <img src="https://api.lorem.space/image/face?hash=3174" />
-                      </div>
-                    </div>
-                    <div className='ml-4'>
-                      <h2 className='font-semibold'>Maria das Graças</h2>
-                      <p className='text-sm font-semibold'>21/03/2022</p>
-                    </div>
-                  </div>
-                  <div className='mt-4'>
-                    <p className='text-base'>Bota Treino Academia Sneaker Fitness Nude em Couro Legítimo</p>
-                  </div>
-                </div>
-                <div className="card snap-center flex-shrink-0 mr-2 w-80 border p-4 rounded-lg my-10 mx-4">
-                  <div className="flex items-center">
-                    <div className="avatar">
-                      <div className="w-20 rounded-full ring ring-pink-200 ring-offset-base-100 ring-offset-2">
-                        <img src="https://api.lorem.space/image/face?hash=3174" />
-                      </div>
-                    </div>
-                    <div className='ml-4'>
-                      <h2 className='font-semibold'>Maria das Graças</h2>
-                      <p className='text-sm font-semibold'>21/03/2022</p>
-                    </div>
-                  </div>
-                  <div className='mt-4'>
-                    <p className='text-base'>Bota Treino Academia Sneaker Fitness Nude em Couro Legítimo</p>
-                  </div>
-                </div>
               </div>
               
             </div>
@@ -364,8 +197,12 @@ export const getStaticProps: GetStaticProps = async () => {
     prismic.Predicates.at('document.type', 'slide')
   );
 
-  const produto = await client.query(
+  const resultProducts = await client.query(
     prismic.Predicates.at('document.type', 'produto')
+  );
+
+  const resultEvaluation = await client.query(
+    prismic.Predicates.at('document.type', 'avaliacao')
   );
 
   const slides = resultSlide.results.map((data) => ({
@@ -376,14 +213,43 @@ export const getStaticProps: GetStaticProps = async () => {
     }
   ))
 
-  //console.log('SLIDE', slide);
-  //console.log('PRODUTO', produto.results);
+  const products = resultProducts.results.map((data) => ({
+    id: data.id,
+    slug: data.uid,
+    image: data.data['foto-produto'].url,
+    name: data.data.nome,
+    description: data.data.descricao,
+    price: data.data.preco,
+    category: data.data.categoria,
+
+    }
+  ))
+
+  const evaluations = resultEvaluation.results.map((data) => ({
+    id: data.id,
+    image: data.data.foto.url,
+    name: data.data.nome,
+    description: data.data.comentario,
+    updateAt: new Date(data.last_publication_date).toLocaleDateString('pt-BR', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+      })
+    }
+  ))
+
+
+  console.log(resultEvaluation);
+  console.log('evaluation', evaluations);
 
 
   return {
     props: {
-      slides
-    }
+      slides,
+      products,
+      evaluations
+    },
+    revalidate: 60 * 30 // A cada 30min
   }
 
 }

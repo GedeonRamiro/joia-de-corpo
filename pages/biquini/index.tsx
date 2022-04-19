@@ -4,6 +4,9 @@ import Link from "next/link"
 import Header from "../../components/Header"
 import imgSobre from '../../public/images/imgsobre.jpg'
 import bannerBiquini from '../../public/images/banner-categoria.png'
+import { GetServerSideProps } from "next"
+import * as prismic from '@prismicio/client'
+import { client } from '../../utils/prismic-configuration';
 
 const Biquini = () => {
     return (
@@ -266,3 +269,16 @@ const Biquini = () => {
 }   
 
 export default Biquini
+
+export const  getServerSideProps: GetServerSideProps = async () => {
+    
+    const resultProducts = await client.query(
+        prismic.Predicates.at('document.type', 'produto')
+      );
+    
+    return {
+        props: {
+
+        }
+    }
+}
