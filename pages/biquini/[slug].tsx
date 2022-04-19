@@ -3,14 +3,30 @@ import Head from "next/head"
 import Image from "next/image"
 import Header from "../../components/Header"
 import Produto from '../../public/images/produto.png'
+import { client } from '../../utils/prismic-configuration';
+import * as prismic from '@prismicio/client'
 
-type Props = {
+
+type Product = {
+    id: string
     slug: string
-}
+    image: string
+    name: string
+    description: string
+    price: string
+    category: string
+    size_P: boolean
+    size_M: boolean
+    size_G: boolean
+  }
 
-const Biquini = ({slug}: Props) => {
+  type ContentPros = {
+    product: Product
+  }
 
-    console.log('SLUG:', slug)
+
+
+const Biquini = ({product}: ContentPros) => {
 
     return (
        <>
@@ -21,12 +37,12 @@ const Biquini = ({slug}: Props) => {
                 <div className="container mx-auto">
                     <div className="hero">
                         <div className="hero-content flex-col lg:flex-row">
-                        <figure className="">
+                        <figure className="rounded-lg">
                                 <Image
-                                    className="rounded-lg" 
-                                    src={Produto} 
-                                    alt='titulo'
-                                    width={720}
+                                    className="rounded-lg w-32" 
+                                    src={product.image} 
+                                    alt={product.name}
+                                    width={700}
                                     height={700}
                                     objectFit='contain'
                                     quality={100}
@@ -35,8 +51,8 @@ const Biquini = ({slug}: Props) => {
                                 />
                         </figure> 
                             <div>
-                                <h1 className="text-2xl">Bota Coturno Segurança Preta</h1>
-                                <h4 className="py-6 text-sm">Bota de Segurança ideal para trabalho pesado , Confeccionada em couro com o solado de borracha</h4>
+                                <h1 className="text-2xl">{product.name}</h1>
+                                <h4 className="py-6 text-sm">{product.description}</h4>
                                 <p className="font-semibold mb-2">Tamanhos Disponível</p>
                                 <div className="flex">
                                     <div className="bg-pink-300 w-9 h-9 font-semibold text-gray-800 flex justify-center items-center rounded-md border border-pink-400 text-sm mr-2">P</div>
@@ -59,9 +75,42 @@ export const getServerSideProps: GetServerSideProps = async ({params}) => {
 
     const { slug }: any = params
 
+    try {
+        const resultProduct = await client.getByUID('produto', String(slug), {})
+        
+        const product = {
+            image: resultProduct.data['foto-produto'].url,
+            name: resultProduct.data.nome,
+            description: resultProduct.data.descricao,
+            price: resultProduct.data.preco,
+            category: resultProduct.data.categoria,
+            size_P: resultProduct.data['tamanho-p'],
+            size_M: resultProduct.data['tamanho-m'],
+            size_G: resultProduct.data['tamanho-g'],
+        
+        }
+          
+        return {
+            props: {
+                product,
+            }
+          
+        }
+        
+    } catch (error) {
+        if(error) {
+            return {
+              redirect: {
+                permanent: false,
+                destination: '/'
+              }
+            }
+          }
+    }
+
     return {
         props: {
-            slug
+           
         }
     }
 }
