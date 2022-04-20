@@ -48,19 +48,17 @@ const Pijama = ( {product}: ContentPros) => {
                                     objectFit='contain'
                                     quality={100}
                                     placeholder='blur'
-                                    blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mO8fEOxHgAGnwJNrlOKngAAAABJRU5ErkJggg=='
-                                />
-                        </figure> 
+                                    blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mM8J1k1GwAFHAH+8T2VRwAAAABJRU5ErkJggg==' />                        </figure> 
                             <div>
                                 <h1 className="text-2xl">{product.name}</h1>
                                 <h4 className="py-6 text-sm">{product.description}</h4>
                                 <p className="font-semibold mb-2">Tamanhos Disponível</p>
                                 <div className="flex">
-                                    {product.pieceSize && product.pieceSize.map(size => (
+                                    {product.pieceSize && product.pieceSize.map((size, index) => (
                                         size.active === true ? (
-                                            <div className="bg-pink-300 w-9 h-9 font-semibold text-gray-800 flex justify-center items-center rounded-md border border-pink-400 text-sm mr-2">{size.size}</div>
+                                            <div key={index} className="bg-pink-300 w-9 h-9 font-semibold text-gray-800 flex justify-center items-center rounded-md border border-pink-400 text-sm mr-2">{size.size}</div>
                                         ) : (
-                                            <div className="bg-gray-200 w-9 h-9 font-semibold flex text-gray-400 justify-center items-center rounded-md border border-gray-400 text-sm mr-2">{size.size}</div>
+                                            <div key={index} className="bg-gray-200 w-9 h-9 font-semibold flex text-gray-400 justify-center items-center rounded-md border border-gray-400 text-sm mr-2">{size.size}</div>
                                         )
                                     ))}
                                 </div>

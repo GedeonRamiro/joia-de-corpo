@@ -23,8 +23,6 @@ type Products = {
 
 
 const Pijama = ( {products}: ContentPros) => {
-
-    console.log(products)
     
     return (
         <>
@@ -56,9 +54,7 @@ const Pijama = ( {products}: ContentPros) => {
                                         objectFit='cover'
                                         quality={100}
                                         placeholder='blur'
-                                        blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mO8fEOxHgAGnwJNrlOKngAAAABJRU5ErkJggg=='
-                                    />
-                            </figure> 
+                                        blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mM8J1k1GwAFHAH+8T2VRwAAAABJRU5ErkJggg==' />                            </figure> 
                                     <div className="flex-col flex justify-between">
                                         <div>
                                             <h2 className="text-center text-xl font-semibold mt-2">R$ {product.price}</h2> 
