@@ -107,8 +107,8 @@ const Home: NextPage<ContentPros> = ( {slides, products, evaluations} ) => {
               <div className='mb-4 mt-1 border border-b-gray-200'></div>
               <div className="snap-mandatory snap-x flex overflow-scroll overflow-y-hidden ">
                 {products.filter(product => product.category === 'Biquini').map(product => (
-                   <Link href={`/biquini/${product.slug}`}>
-                    <div key={product.id} className="card snap-center w-80 flex-shrink-0 mr-2 cursor-pointer">
+                   <Link href={`/biquini/${product.slug}`} key={product.id}>
+                    <div className="card snap-center w-80 flex-shrink-0 mr-2 cursor-pointer">
                       <figure><Image src={product.image} alt={product.name} width="320" height="180" objectFit='cover' /></figure>
                       <div className="card-body">
                         <h2 className="text-base font-bold">{product.name}</h2>
@@ -126,8 +126,8 @@ const Home: NextPage<ContentPros> = ( {slides, products, evaluations} ) => {
               <div className='mb-4 mt-1 border border-b-gray-200'></div>
               <div className="snap-mandatory snap-x flex overflow-scroll overflow-y-hidden ">
                 {products.filter(product => product.category === 'Lingerie').map(product => (
-                  <Link href={`/lingerie/${product.slug}`}>
-                    <div key={product.id} className="card snap-center w-80 flex-shrink-0 mr-2 cursor-pointer">
+                  <Link href={`/lingerie/${product.slug}`} key={product.id}>
+                    <div className="card snap-center w-80 flex-shrink-0 mr-2 cursor-pointer">
                       <figure><Image src={product.image} alt={product.name} width="320" height="180" objectFit='cover' /></figure>
                       <div className="card-body">
                         <h2 className="text-lg font-bold">{product.name}</h2>
@@ -145,8 +145,8 @@ const Home: NextPage<ContentPros> = ( {slides, products, evaluations} ) => {
               <div className='mb-4 mt-1 border border-b-gray-200'></div>
               <div className="snap-mandatory snap-x flex overflow-scroll overflow-y-hidden ">
                 {products.filter(product => product.category === 'Pijama').map(product => (
-                   <Link href={`/pijama/${product.slug}`}>
-                      <div key={product.id} className="card snap-center w-80 flex-shrink-0 mr-2 cursor-pointer">
+                   <Link href={`/pijama/${product.slug}`} key={product.id}>
+                      <div className="card snap-center w-80 flex-shrink-0 mr-2 cursor-pointer">
                         <figure><Image src={product.image} alt={product.name} width="320" height="180" objectFit='cover' /></figure>
                         <div className="card-body">
                           <h2 className="text-lg font-bold">{product.name}</h2>
