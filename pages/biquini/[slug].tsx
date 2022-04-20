@@ -2,9 +2,8 @@ import { GetServerSideProps } from "next"
 import Head from "next/head"
 import Image from "next/image"
 import Header from "../../components/Header"
-import Produto from '../../public/images/produto.png'
 import { client } from '../../utils/prismic-configuration';
-import * as prismic from '@prismicio/client'
+
 
 
 type Product = {
@@ -15,9 +14,9 @@ type Product = {
     description: string
     price: string
     category: string
-    size_P: boolean
-    size_M: boolean
-    size_G: boolean
+    pieceSize:[
+       { size: string, active: boolean}
+    ]
   }
 
   type ContentPros = {
@@ -26,7 +25,9 @@ type Product = {
 
 
 
-const Biquini = ({product}: ContentPros) => {
+const Biquini = ( {product}: ContentPros) => {
+    
+  
 
     return (
        <>
@@ -55,9 +56,13 @@ const Biquini = ({product}: ContentPros) => {
                                 <h4 className="py-6 text-sm">{product.description}</h4>
                                 <p className="font-semibold mb-2">Tamanhos Disponível</p>
                                 <div className="flex">
-                                    <div className="bg-pink-300 w-9 h-9 font-semibold text-gray-800 flex justify-center items-center rounded-md border border-pink-400 text-sm mr-2">P</div>
-                                    <div className="bg-gray-200 w-9 h-9 font-semibold flex text-gray-400 justify-center items-center rounded-md border border-gray-400 text-sm mr-2">M</div>
-                                    <div className="bg-pink-300 w-9 h-9 font-semibold text-gray-800 flex justify-center items-center rounded-md border border-pink-400 text-sm mr-2">G</div>
+                                    {product.pieceSize && product.pieceSize.map(size => (
+                                        size.active === true ? (
+                                            <div className="bg-pink-300 w-9 h-9 font-semibold text-gray-800 flex justify-center items-center rounded-md border border-pink-400 text-sm mr-2">{size.size}</div>
+                                        ) : (
+                                            <div className="bg-gray-200 w-9 h-9 font-semibold flex text-gray-400 justify-center items-center rounded-md border border-gray-400 text-sm mr-2">{size.size}</div>
+                                        )
+                                    ))}
                                 </div>
                                 <button className="sm:btn-md btn mt-4 bg-pink-400 hover:bg-pink-500 border-none">Fazer pedido</button> 
                             </div>
@@ -84,9 +89,11 @@ export const getServerSideProps: GetServerSideProps = async ({params}) => {
             description: resultProduct.data.descricao,
             price: resultProduct.data.preco,
             category: resultProduct.data.categoria,
-            size_P: resultProduct.data['tamanho-p'],
-            size_M: resultProduct.data['tamanho-m'],
-            size_G: resultProduct.data['tamanho-g'],
+            pieceSize: [
+               { size: 'P' ,active: resultProduct.data['tamanho-p']},
+               { size: 'M' ,active: resultProduct.data['tamanho-m']},
+               { size: 'G' ,active: resultProduct.data['tamanho-g']},
+            ]
         
         }
           
