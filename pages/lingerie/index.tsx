@@ -2,8 +2,7 @@ import Head from "next/head"
 import Image from "next/image"
 import Link from "next/link"
 import Header from "../../components/Header"
-import imgSobre from '../../public/images/imgsobre.jpg'
-import bannerBiquini from '../../public/images/banner-categoria.png'
+import bannerLingerie from '../../public/images/banner-categoria.png'
 import { GetServerSideProps } from "next"
 import * as prismic from '@prismicio/client'
 import { client } from '../../utils/prismic-configuration';
@@ -23,7 +22,7 @@ type Products = {
   }
 
 const Lingerie = ( {products}: ContentPros ) => {
-    console.log(products)
+
     return (
         <>
             <Head>
@@ -32,7 +31,7 @@ const Lingerie = ( {products}: ContentPros ) => {
             <Header>
                 <div className="container mx-auto">
                     <div className='flex justify-center mt-10 mx-4 sm:mx-0'>
-                        <Image src={bannerBiquini} 
+                        <Image src={bannerLingerie} 
                         className=""                     
                         alt='titulo'
                         width={844}
