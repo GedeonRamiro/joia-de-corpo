@@ -107,14 +107,16 @@ const Home: NextPage<ContentPros> = ( {slides, products, evaluations} ) => {
               <div className='mb-4 mt-1 border border-b-gray-200'></div>
               <div className="snap-mandatory snap-x flex overflow-scroll overflow-y-hidden ">
                 {products.filter(product => product.category === 'Biquini').map(product => (
-                   <div key={product.id} className="card snap-center w-80 flex-shrink-0 mr-2">
-                    <figure><Image src={product.image} alt={product.name} width="320" height="180" objectFit='cover' /></figure>
-                    <div className="card-body">
-                      <h2 className="text-base font-bold">{product.name}</h2>
-                      <p className='font-light text-sm'>{product.description ?.slice(0,50) + '...'}</p>
-                      <span>R$ {product.price}</span>
+                   <Link href={`/biquini/${product.slug}`}>
+                    <div key={product.id} className="card snap-center w-80 flex-shrink-0 mr-2 cursor-pointer">
+                      <figure><Image src={product.image} alt={product.name} width="320" height="180" objectFit='cover' /></figure>
+                      <div className="card-body">
+                        <h2 className="text-base font-bold">{product.name}</h2>
+                        <p className='font-light text-sm'>{product.description ?.slice(0,50) + '...'}</p>
+                        <span>R$ {product.price}</span>
+                      </div>
                     </div>
-                 </div>
+                  </Link>
                 ))}     
               </div>
             </div> 
@@ -124,15 +126,17 @@ const Home: NextPage<ContentPros> = ( {slides, products, evaluations} ) => {
               <div className='mb-4 mt-1 border border-b-gray-200'></div>
               <div className="snap-mandatory snap-x flex overflow-scroll overflow-y-hidden ">
                 {products.filter(product => product.category === 'Lingerie').map(product => (
-                    <div key={product.id} className="card snap-center w-80 flex-shrink-0 mr-2">
+                  <Link href={`/lingerie/${product.slug}`}>
+                    <div key={product.id} className="card snap-center w-80 flex-shrink-0 mr-2 cursor-pointer">
                       <figure><Image src={product.image} alt={product.name} width="320" height="180" objectFit='cover' /></figure>
                       <div className="card-body">
                         <h2 className="text-lg font-bold">{product.name}</h2>
                         <p className='font-light text-sm'>{product.description ?.slice(0,50) + '...'}</p>
                         <span>R$ {product.price}</span>
                       </div>
-                  </div>
-                  ))}     
+                    </div>
+                  </Link>   
+                  ))}  
               </div>
             </div> 
 
@@ -141,14 +145,16 @@ const Home: NextPage<ContentPros> = ( {slides, products, evaluations} ) => {
               <div className='mb-4 mt-1 border border-b-gray-200'></div>
               <div className="snap-mandatory snap-x flex overflow-scroll overflow-y-hidden ">
                 {products.filter(product => product.category === 'Pijama').map(product => (
-                    <div key={product.id} className="card snap-center w-80 flex-shrink-0 mr-2">
-                      <figure><Image src={product.image} alt={product.name} width="320" height="180" objectFit='cover' /></figure>
-                      <div className="card-body">
-                        <h2 className="text-lg font-bold">{product.name}</h2>
-                        <p className='font-light text-sm'>{product.description ?.slice(0,50) + '...'}</p>
-                        <span>R$ {product.price}</span>
-                      </div>
-                  </div>
+                   <Link href={`/pijama/${product.slug}`}>
+                      <div key={product.id} className="card snap-center w-80 flex-shrink-0 mr-2 cursor-pointer">
+                        <figure><Image src={product.image} alt={product.name} width="320" height="180" objectFit='cover' /></figure>
+                        <div className="card-body">
+                          <h2 className="text-lg font-bold">{product.name}</h2>
+                          <p className='font-light text-sm'>{product.description ?.slice(0,50) + '...'}</p>
+                          <span>R$ {product.price}</span>
+                        </div>
+                    </div>
+                  </Link>
                   ))}      
               </div>
             </div> 
@@ -156,7 +162,7 @@ const Home: NextPage<ContentPros> = ( {slides, products, evaluations} ) => {
             <div className='my-20'>
               <h4 className="text-center font-semibold">DEPOIMENTOS DE CLIENTES</h4>
 
-              <div className="snap-mandatory snap-x flex sm:justify-center overflow-scroll overflow-y-hidden ">
+              <div className="snap-mandatory snap-x flex overflow-scroll overflow-y-hidden ">
                 
                 {evaluations.map(evaluation => (
                   <div key={evaluation.id} className="card snap-center flex-shrink-0 mr-2 w-80 border p-4 rounded-lg my-10 mx-4">
