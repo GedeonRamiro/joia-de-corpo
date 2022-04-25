@@ -9,7 +9,9 @@ import Link from 'next/link'
 import { WiDirectionLeft } from 'react-icons/wi'
 import * as prismic from '@prismicio/client'
 import { client } from '../utils/prismic-configuration';
-import { useState } from 'react'
+import { useRef, useState } from 'react'
+import { BsArrowLeft } from 'react-icons/bs';
+
 
 type Slides = {
   id: string,
@@ -46,6 +48,40 @@ const Home: NextPage<ContentPros> = ( {slides, products, evaluations} ) => {
 
   const [slideActive, setSlideActive] = useState('')
 
+  const carouselBiquini = useRef<HTMLElement>();
+  const carouselLingerie = useRef<HTMLElement>();
+  const carouselPijama = useRef<HTMLElement>();
+
+  const handleLeftClick = (btn: string) => {
+   
+    if(carouselBiquini.current && btn === 'btn-biquini') {
+      carouselBiquini.current.scrollLeft -= carouselBiquini.current.offsetWidth;
+    }
+
+    if(carouselLingerie.current && btn === 'btn-lingerie') {
+      carouselLingerie.current.scrollLeft -= carouselLingerie.current.offsetWidth;
+    }
+
+    if(carouselPijama.current && btn === 'btn-pijama') {
+      carouselPijama.current.scrollLeft -= carouselPijama.current.offsetWidth;
+    }
+  };
+
+  const handleRightClick = (btn: string) => {
+  
+    if(carouselBiquini.current && btn === 'btn-biquini') {
+      carouselBiquini.current.scrollLeft += carouselBiquini.current.offsetWidth;
+    }
+
+    if(carouselLingerie.current && btn === 'btn-lingerie') {
+      carouselLingerie.current.scrollLeft += carouselLingerie.current.offsetWidth;
+    }
+
+    if(carouselPijama.current && btn === 'btn-pijama') {
+      carouselPijama.current.scrollLeft += carouselPijama.current.offsetWidth;
+    }
+  };
+
   return (
     <>
       <Head>
@@ -72,7 +108,7 @@ const Home: NextPage<ContentPros> = ( {slides, products, evaluations} ) => {
                 ))}
             </div>
 
-            <div className="grid gap-4 my-0 sm:my-6 mx-4 sm:mx-0 sm:grid-cols-1 md:grid-cols-3 ">
+            <div className="hidden sm:grid gap-4 my-0 sm:my-6 mx-4 sm:mx-0 sm:grid-cols-1 md:grid-cols-3">
               <Link href={'/biquini'}>
                 <a className="border-b rounded-lg bg-gradient-to-r from-pink-400 to-pink-300 shadow-sm">
                   <Image className='rounded-t-lg' src={bannerBiquini} width="500" height="300" objectFit='cover'></Image>
@@ -102,10 +138,19 @@ const Home: NextPage<ContentPros> = ( {slides, products, evaluations} ) => {
               </Link>
             </div>
 
+
             <div className="grid grid-cols-1 mx-4 sm:mx-0 mt-4">
               <h4 className="text-lg sm:text-3xl">Biquíni</h4> 
               <div className='mb-4 mt-1 border border-b-gray-200'></div>
-              <div className="snap-mandatory snap-x flex overflow-scroll overflow-y-hidden ">
+              <div className="flex justify-between mb-2">
+                  <button className="text-3xl text-pink-300" onClick={() => handleLeftClick('btn-biquini')}>
+                    <BsArrowLeft />
+                  </button>
+                  <button id='btn-rigth-biquini' className="text-3xl rotate-180 text-pink-300" onClick={() => handleRightClick('btn-biquini')}>
+                    <BsArrowLeft />
+                  </button>
+              </div>
+              <div className="snap-mandatory snap-x flex overflow-scroll overflow-y-hidden carousel" ref={carouselBiquini}>
                 {products.filter(product => product.category === 'Biquini').map(product => (
                    <Link href={`/biquini/${product.slug}`} key={product.id}>
                     <div className="card snap-center w-80 flex-shrink-0 mr-2 cursor-pointer">
@@ -121,10 +166,19 @@ const Home: NextPage<ContentPros> = ( {slides, products, evaluations} ) => {
               </div>
             </div> 
 
+
             <div className="grid grid-cols-1 mx-4 sm:mx-0 mt-4">
               <h4 className="text-base sm:text-3xl">Lingerie</h4> 
               <div className='mb-4 mt-1 border border-b-gray-200'></div>
-              <div className="snap-mandatory snap-x flex overflow-scroll overflow-y-hidden ">
+              <div className="flex justify-between mb-2">
+                  <button className="text-3xl text-pink-300" onClick={() => handleLeftClick('btn-lingerie')}>
+                    <BsArrowLeft />
+                  </button>
+                  <button className="text-3xl rotate-180 text-pink-300" onClick={() => handleRightClick('btn-lingerie')}>
+                    <BsArrowLeft />
+                  </button>
+              </div>
+              <div className="snap-mandatory snap-x flex overflow-scroll overflow-y-hidden carousel" ref={carouselLingerie}>
                 {products.filter(product => product.category === 'Lingerie').map(product => (
                   <Link href={`/lingerie/${product.slug}`} key={product.id}>
                     <div className="card snap-center w-80 flex-shrink-0 mr-2 cursor-pointer">
@@ -143,7 +197,15 @@ const Home: NextPage<ContentPros> = ( {slides, products, evaluations} ) => {
             <div className="grid grid-cols-1 mx-4 sm:mx-0 mt-4">
               <h4 className="text-base sm:text-3xl">Pijama</h4> 
               <div className='mb-4 mt-1 border border-b-gray-200'></div>
-              <div className="snap-mandatory snap-x flex overflow-scroll overflow-y-hidden ">
+              <div className="flex justify-between mb-2">
+                  <button className="text-3xl text-pink-300" onClick={() => handleLeftClick('btn-pijama')}>
+                    <BsArrowLeft />
+                  </button>
+                  <button className="text-3xl rotate-180 text-pink-300" onClick={() => handleRightClick('btn-pijama')}>
+                    <BsArrowLeft />
+                  </button>
+              </div>
+              <div className="snap-mandatory snap-x flex overflow-scroll overflow-y-hidden carousel" ref={carouselPijama}>
                 {products.filter(product => product.category === 'Pijama').map(product => (
                    <Link href={`/pijama/${product.slug}`} key={product.id}>
                       <div className="card snap-center w-80 flex-shrink-0 mr-2 cursor-pointer">
