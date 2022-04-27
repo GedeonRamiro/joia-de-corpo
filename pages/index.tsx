@@ -10,7 +10,7 @@ import { WiDirectionLeft } from 'react-icons/wi'
 import * as prismic from '@prismicio/client'
 import { client } from '../utils/prismic-configuration';
 import { useRef, useState } from 'react'
-import { BsArrowLeft } from 'react-icons/bs';
+import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
 
 
 type Slides = {
@@ -51,6 +51,7 @@ const Home: NextPage<ContentPros> = ( {slides, products, evaluations} ) => {
   const carouselBiquini = useRef<HTMLElement>();
   const carouselLingerie = useRef<HTMLElement>();
   const carouselPijama = useRef<HTMLElement>();
+  const carouselEvaluations = useRef<HTMLElement>();
 
   const handleLeftClick = (btn: string) => {
    
@@ -64,6 +65,10 @@ const Home: NextPage<ContentPros> = ( {slides, products, evaluations} ) => {
 
     if(carouselPijama.current && btn === 'btn-pijama') {
       carouselPijama.current.scrollLeft -= carouselPijama.current.offsetWidth;
+    }
+
+    if(carouselEvaluations.current && btn === 'btn-evaluation') {
+      carouselEvaluations.current.scrollLeft -= carouselEvaluations.current.offsetWidth;
     }
   };
 
@@ -80,6 +85,10 @@ const Home: NextPage<ContentPros> = ( {slides, products, evaluations} ) => {
     if(carouselPijama.current && btn === 'btn-pijama') {
       carouselPijama.current.scrollLeft += carouselPijama.current.offsetWidth;
     }
+
+    if(carouselEvaluations.current && btn === 'btn-evaluation') {
+      carouselEvaluations.current.scrollLeft += carouselEvaluations.current.offsetWidth;
+    }
   };
 
   return (
@@ -92,7 +101,7 @@ const Home: NextPage<ContentPros> = ( {slides, products, evaluations} ) => {
             <div className="carousel w-full">
               {slides.map((slide, index) =>(
                  <div id={`item${index + 1}`} className="carousel-item w-full" key={slide.id}>
-                     <Image src={slide.url} alt={slide.description} width="1550" height="700" objectFit='cover'></Image>
+                     <Image className="rounded-b-lg" src={slide.url} alt={slide.description} width="1550" height="700" objectFit='cover'></Image>
                  </div> 
               ))}
             </div>
@@ -140,16 +149,18 @@ const Home: NextPage<ContentPros> = ( {slides, products, evaluations} ) => {
 
 
             <div className="grid grid-cols-1 mx-4 sm:mx-0 mt-4">
-              <h4 className="text-lg sm:text-3xl">Biquíni</h4> 
-              <div className='mb-4 mt-1 border border-b-gray-200'></div>
-              <div className="flex justify-between mb-2">
-                  <button className="text-3xl text-pink-300" onClick={() => handleLeftClick('btn-biquini')}>
-                    <BsArrowLeft />
-                  </button>
-                  <button id='btn-rigth-biquini' className="text-3xl rotate-180 text-pink-300" onClick={() => handleRightClick('btn-biquini')}>
-                    <BsArrowLeft />
-                  </button>
+              <div className="flex justify-between">
+                <h4 className="text-lg sm:text-3xl">Biquíni</h4> 
+                <div className="flex justify-end mb-2">
+                    <button className="bg-gray-200 text-gray-600 rounded-md mx-1 p-1 text-xl sm:text-2xl" onClick={() => handleLeftClick('btn-biquini')}>
+                      <MdKeyboardArrowLeft />
+                    </button>
+                    <button className="bg-gray-200 text-gray-600 rounded-md mx-1 p-1 text-xl sm:text-2xl" onClick={() => handleRightClick('btn-biquini')}>
+                      <MdKeyboardArrowRight />
+                    </button>
+                </div>
               </div>
+              <div className='mb-4 mt-1 border border-b-gray-200'></div>
               <div className="snap-mandatory snap-x flex overflow-scroll overflow-y-hidden carousel" ref={carouselBiquini}>
                 {products.filter(product => product.category === 'Biquini').map(product => (
                    <Link href={`/biquini/${product.slug}`} key={product.id}>
@@ -168,16 +179,18 @@ const Home: NextPage<ContentPros> = ( {slides, products, evaluations} ) => {
 
 
             <div className="grid grid-cols-1 mx-4 sm:mx-0 mt-4">
-              <h4 className="text-base sm:text-3xl">Lingerie</h4> 
-              <div className='mb-4 mt-1 border border-b-gray-200'></div>
-              <div className="flex justify-between mb-2">
-                  <button className="text-3xl text-pink-300" onClick={() => handleLeftClick('btn-lingerie')}>
-                    <BsArrowLeft />
-                  </button>
-                  <button className="text-3xl rotate-180 text-pink-300" onClick={() => handleRightClick('btn-lingerie')}>
-                    <BsArrowLeft />
-                  </button>
+              <div className="flex justify-between">
+                <h4 className="text-base sm:text-3xl">Lingerie</h4> 
+                <div className="flex justify-end mb-2">
+                    <button className="bg-gray-200 text-gray-600 rounded-md mx-1 p-1 text-xl sm:text-2xl" onClick={() => handleLeftClick('btn-lingerie')}>
+                      <MdKeyboardArrowLeft />
+                    </button>
+                    <button className="bg-gray-200 text-gray-600 rounded-md mx-1 p-1 text-xl sm:text-2xl" onClick={() => handleRightClick('btn-lingerie')}>
+                      <MdKeyboardArrowRight />
+                    </button>
+                </div>
               </div>
+              <div className='mb-4 mt-1 border border-b-gray-200'></div>
               <div className="snap-mandatory snap-x flex overflow-scroll overflow-y-hidden carousel" ref={carouselLingerie}>
                 {products.filter(product => product.category === 'Lingerie').map(product => (
                   <Link href={`/lingerie/${product.slug}`} key={product.id}>
@@ -195,16 +208,18 @@ const Home: NextPage<ContentPros> = ( {slides, products, evaluations} ) => {
             </div> 
 
             <div className="grid grid-cols-1 mx-4 sm:mx-0 mt-4">
+            <div className="flex justify-between">
               <h4 className="text-base sm:text-3xl">Pijama</h4> 
-              <div className='mb-4 mt-1 border border-b-gray-200'></div>
-              <div className="flex justify-between mb-2">
-                  <button className="text-3xl text-pink-300" onClick={() => handleLeftClick('btn-pijama')}>
-                    <BsArrowLeft />
+              <div className="flex justify-end mb-2">
+                  <button className="bg-gray-200 text-gray-600 rounded-md mx-1 p-1 text-xl sm:text-2xl" onClick={() => handleLeftClick('btn-pijama')}>
+                    <MdKeyboardArrowLeft />
                   </button>
-                  <button className="text-3xl rotate-180 text-pink-300" onClick={() => handleRightClick('btn-pijama')}>
-                    <BsArrowLeft />
+                  <button className="bg-gray-200 text-gray-600 rounded-md mx-1 p-1 text-xl sm:text-2xl" onClick={() => handleRightClick('btn-pijama')}>
+                    <MdKeyboardArrowRight />
                   </button>
               </div>
+            </div>
+              <div className='mb-4 mt-1 border border-b-gray-200'></div>
               <div className="snap-mandatory snap-x flex overflow-scroll overflow-y-hidden carousel" ref={carouselPijama}>
                 {products.filter(product => product.category === 'Pijama').map(product => (
                    <Link href={`/pijama/${product.slug}`} key={product.id}>
@@ -224,10 +239,10 @@ const Home: NextPage<ContentPros> = ( {slides, products, evaluations} ) => {
             <div className='my-20'>
               <h4 className="text-center font-semibold">DEPOIMENTOS DE CLIENTES</h4>
 
-              <div className="snap-mandatory snap-x flex overflow-scroll overflow-y-hidden ">
+              <div className="snap-mandatory snap-x flex overflow-scroll   overflow-y-hidden carousel"  ref={carouselEvaluations}>
                 
                 {evaluations.map(evaluation => (
-                  <div key={evaluation.id} className="card snap-center flex-shrink-0 mr-2 w-80 border p-4 rounded-lg my-10 mx-4">
+                  <div key={evaluation.id} className="card snap-center flex-shrink-0 mr-2 w-80 border p-4 rounded-lg mt-10 mb-2 mx-4">
                     <div className="flex items-center">
                       <div className="avatar">
                         <div className="w-20 rounded-full ring ring-pink-200 ring-offset-base-100 ring-offset-2">
@@ -244,7 +259,16 @@ const Home: NextPage<ContentPros> = ( {slides, products, evaluations} ) => {
                     </div>
                   </div>
                 ))}
+                
 
+              </div>
+              <div className="flex justify-center">
+                  <button className="text-gray-600 rounded-md sm:mx-1 text-3xl sm:text-5xl" onClick={() => handleLeftClick('btn-evaluation')}>
+                    <MdKeyboardArrowLeft />
+                  </button>
+                  <button className="text-gray-600 rounded-md sm:mx-1 text-3xl sm:text-5xl" onClick={() => handleRightClick('btn-evaluation')}>
+                    <MdKeyboardArrowRight />
+                  </button>
               </div>
               
             </div>
