@@ -37,14 +37,14 @@ const Header = ({ children }: LayoutProps) => {
                         </div> 
                         <Link href={'/'}>
                             <a className="flex-none  sm:hidden ">
-                                <Image src={Logo} alt='Logo' width={38} height={38} />
+                                <Image src={Logo} alt='Logo' width={30} height={30} />
                             </a> 
                         </Link>
                         <div className="flex-1 px-2 mx-2">
                             <div className="items-stretch  hidden sm:flex justify-center mt-2">
                                 <Link href={'/'}>
                                     <a className="flex-none mx-4 ">
-                                        <Image src={Logo} alt='Logo' width={38} height={38} />
+                                        <Image src={Logo} alt='Logo' width={30} height={30} />
                                     </a> 
                                 </Link>
                                 {menuArray.map((menu, index) => (
