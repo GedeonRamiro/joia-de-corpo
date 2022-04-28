@@ -101,7 +101,16 @@ const Home: NextPage<ContentPros> = ( {slides, products, evaluations} ) => {
             <div className="carousel w-full">
               {slides.map((slide, index) =>(
                  <div id={`item${index + 1}`} className="carousel-item w-full" key={slide.id}>
-                     <Image className="rounded-b-lg" src={slide.url} alt={slide.description} width="1550" height="700" objectFit='cover'></Image>
+                     <Image 
+                        className="rounded-b-lg" 
+                        src={slide.url} 
+                        alt={slide.description} 
+                        width="1550" 
+                        height="700" 
+                        objectFit='cover'
+                        placeholder='blur'
+                        blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mM8J1k1GwAFHAH+8T2VRwAAAABJRU5ErkJggg==' >  
+                      </Image>
                  </div> 
               ))}
             </div>
