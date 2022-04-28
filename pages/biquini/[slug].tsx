@@ -3,6 +3,8 @@ import Head from "next/head"
 import Image from "next/image"
 import Header from "../../components/Header"
 import { client } from '../../utils/prismic-configuration';
+import { RiWhatsappFill } from 'react-icons/ri'
+import { useRouter } from "next/router";
 
 
 
@@ -26,7 +28,16 @@ type Product = {
 
 
 const Biquini = ( {product}: ContentPros) => {
-    
+
+    const openWhatsapp = (product: Product) => {
+        const url = window.location.href;
+        window.open(`https://api.whatsapp.com/send?phone=${+5586988493319}
+                    &text='Olá, fiquei interessado no produto: 
+                    ${product.name} - 
+                    R$ ${product.price} - 
+                    ${url}'`
+        )
+    }
   
 
     return (
@@ -48,7 +59,7 @@ const Biquini = ( {product}: ContentPros) => {
                                     objectFit='contain'
                                     quality={100}
                                     placeholder='blur'
-                                    blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mM8J1k1GwAFHAH+8T2VRwAAAABJRU5ErkJggg==' />                                />
+                                    blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mM8J1k1GwAFHAH+8T2VRwAAAABJRU5ErkJggg==' />  
                         </figure> 
                             <div>
                                 <h1 className="text-2xl">{product.name}</h1>
@@ -63,7 +74,10 @@ const Biquini = ( {product}: ContentPros) => {
                                         )
                                     ))}
                                 </div>
-                                <button className="sm:btn-md btn mt-4 bg-pink-400 hover:bg-pink-500 border-none">Fazer pedido</button> 
+                                <button onClick={() => openWhatsapp(product)} className="sm:btn-md btn mt-4 bg-pink-400 hover:bg-pink-500 border-none">
+                                    <RiWhatsappFill className="text-2xl mr-2" />
+                                    Fazer pedido
+                                </button> 
                             </div>
                         </div>
                     </div>
@@ -77,6 +91,7 @@ export default Biquini
 
 export const getServerSideProps: GetServerSideProps = async ({params}) => {
 
+ 
     const { slug }: any = params
 
     try {

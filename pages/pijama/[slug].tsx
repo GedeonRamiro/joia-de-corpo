@@ -1,6 +1,8 @@
 import { GetServerSideProps } from "next"
 import Head from "next/head"
 import Image from "next/image"
+import { useRouter } from "next/router";
+import { RiWhatsappFill } from "react-icons/ri";
 import Header from "../../components/Header"
 import { client } from '../../utils/prismic-configuration';
 
@@ -26,8 +28,20 @@ type Product = {
 
 
 const Pijama = ( {product}: ContentPros) => {
+
+   /*  const router = useRouter()
+    console.log(router) */
     
-  
+    const openWhatsapp = (product: Product) => {
+        const url = window.location.href;
+        window.open(`https://api.whatsapp.com/send?phone=${+5586988493319}
+                    &text='Olá, fiquei interessado no produto: 
+                    ${product.name} - 
+                    R$ ${product.price} - 
+                    ${url}'`
+        )
+    }
+    
 
     return (
        <>
@@ -62,7 +76,10 @@ const Pijama = ( {product}: ContentPros) => {
                                         )
                                     ))}
                                 </div>
-                                <button className="sm:btn-md btn mt-4 bg-pink-400 hover:bg-pink-500 border-none">Fazer pedido</button> 
+                                <button onClick={() => openWhatsapp(product)} className="sm:btn-md btn mt-4 bg-pink-400 hover:bg-pink-500 border-none">
+                                    <RiWhatsappFill className="text-2xl mr-2" />
+                                    Fazer pedido
+                                </button> 
                             </div>
                         </div>
                     </div>
@@ -80,6 +97,8 @@ export const getServerSideProps: GetServerSideProps = async ({params}) => {
 
     try {
         const resultProduct = await client.getByUID('produto', String(slug), {})
+        
+        console.log(resultProduct)
         
         const product = {
             image: resultProduct.data['foto-produto'].url,
