@@ -48,10 +48,10 @@ const Home: NextPage<ContentPros> = ( {slides, products, evaluations} ) => {
 
   const [slideActive, setSlideActive] = useState('')
 
-  const carouselBiquini = useRef<HTMLElement>();
-  const carouselLingerie = useRef<HTMLElement>();
-  const carouselPijama = useRef<HTMLElement>();
-  const carouselEvaluations = useRef<HTMLElement>();
+  const carouselBiquini = useRef<HTMLDivElement>(null);
+  const carouselLingerie = useRef<HTMLDivElement>(null);
+  const carouselPijama = useRef<HTMLDivElement>(null);
+  const carouselEvaluations = useRef<HTMLDivElement>(null);
 
   const handleLeftClick = (btn: string) => {
    
