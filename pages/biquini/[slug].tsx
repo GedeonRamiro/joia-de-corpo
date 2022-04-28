@@ -4,8 +4,6 @@ import Image from "next/image"
 import Header from "../../components/Header"
 import { client } from '../../utils/prismic-configuration';
 import { RiWhatsappFill } from 'react-icons/ri'
-import { useRouter } from "next/router";
-
 
 
 type Product = {
