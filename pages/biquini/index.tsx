@@ -2,11 +2,11 @@ import Head from "next/head"
 import Image from "next/image"
 import Link from "next/link"
 import Header from "../../components/Header"
-import imgSobre from '../../public/images/imgsobre.jpg'
 import bannerBiquini from '../../public/images/banner-categoria.png'
 import { GetServerSideProps } from "next"
 import * as prismic from '@prismicio/client'
 import { client } from '../../utils/prismic-configuration';
+import formatReal from "../../utils/FormatCurrent"
 
 type Products = {
     id: string
@@ -57,9 +57,10 @@ const Biquini = ( {products}: ContentPros ) => {
                                      blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mM8J1k1GwAFHAH+8T2VRwAAAABJRU5ErkJggg==' />                         </figure> 
                                  <div className="flex-col flex justify-between">
                                      <div>
-                                         <h2 className="text-center text-xl font-semibold mt-2">R$ {product.price}</h2> 
+                                         <h2 className="text-center text-xl font-semibold mt-2">{formatReal(Number(product.price))}</h2> 
                                          <p className='my-2 text-sm sm:text-base'>{product.description ?.slice(0,50) + '...'}</p>
                                      </div>
+                                     
                                      <div className="justify-center card-actions mb-4">
                                          <Link href={`/biquini/${product.slug}`}>
                                              <button className="sm:btn-md btn btn-sm bg-pink-400 hover:bg-pink-500 border-none">Comprar</button> 

@@ -11,6 +11,7 @@ import * as prismic from '@prismicio/client'
 import { client } from '../utils/prismic-configuration';
 import { useRef, useState } from 'react'
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
+import formatReal from '../utils/FormatCurrent'
 
 
 type Slides = {
@@ -91,6 +92,8 @@ const Home: NextPage<ContentPros> = ( {slides, products, evaluations} ) => {
     }
   };
 
+
+
   return (
     <>
       <Head>
@@ -102,7 +105,7 @@ const Home: NextPage<ContentPros> = ( {slides, products, evaluations} ) => {
               {slides.map((slide, index) =>(
                  <div id={`item${index + 1}`} className="carousel-item w-full" key={slide.id}>
                      <Image 
-                        className="rounded-b-lg" 
+                        className="sm:rounded-b-lg" 
                         src={slide.url} 
                         alt={slide.description} 
                         width="1550" 
@@ -120,8 +123,8 @@ const Home: NextPage<ContentPros> = ( {slides, products, evaluations} ) => {
                     onClick={() => setSlideActive(`#item${index + 1}`)} 
                     href={`#item${index + 1}`} 
                     key={slide.id} 
-                    className={`btn btn-xs sm:btn-sm btn-circle ${slideActive === `#item${index + 1}` ?  'bg-pink-400 border-pink-300 border-2' : ''} `}>
-                      {index + 1}
+                    className={`w-4 h-4 no-animation sm:btn-sm btn-circle ${slideActive === `#item${index + 1}` ?  'bg-pink-400 border-pink-300 border-2 sm:border-4' : ' bg-gray-200'} `}>
+                     {/*  {index + 1} */}
                   </a> 
                 ))}
             </div>
@@ -178,7 +181,7 @@ const Home: NextPage<ContentPros> = ( {slides, products, evaluations} ) => {
                       <div className="card-body">
                         <h2 className="text-base font-bold">{product.name}</h2>
                         <p className='font-light text-sm'>{product.description ?.slice(0,50) + '...'}</p>
-                        <span>R$ {product.price}</span>
+                        <span>{formatReal(Number(product.price))}</span>
                       </div>
                     </div>
                   </Link>
@@ -208,7 +211,7 @@ const Home: NextPage<ContentPros> = ( {slides, products, evaluations} ) => {
                       <div className="card-body">
                         <h2 className="text-lg font-bold">{product.name}</h2>
                         <p className='font-light text-sm'>{product.description ?.slice(0,50) + '...'}</p>
-                        <span>R$ {product.price}</span>
+                        <span>{formatReal(Number(product.price))}</span>
                       </div>
                     </div>
                   </Link>   
@@ -237,7 +240,7 @@ const Home: NextPage<ContentPros> = ( {slides, products, evaluations} ) => {
                         <div className="card-body">
                           <h2 className="text-lg font-bold">{product.name}</h2>
                           <p className='font-light text-sm'>{product.description ?.slice(0,50) + '...'}</p>
-                          <span>R$ {product.price}</span>
+                          <span>{formatReal(Number(product.price))}</span>
                         </div>
                     </div>
                   </Link>

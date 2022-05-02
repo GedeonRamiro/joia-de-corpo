@@ -4,6 +4,7 @@ import Image from "next/image"
 import Header from "../../components/Header"
 import { client } from '../../utils/prismic-configuration';
 import { RiWhatsappFill } from 'react-icons/ri'
+import formatReal from "../../utils/FormatCurrent";
 
 
 type Product = {
@@ -32,8 +33,8 @@ const Biquini = ( {product}: ContentPros) => {
         window.open(`https://api.whatsapp.com/send?phone=${+5586988493319}
                     &text='Olá, fiquei interessado no produto: 
                     ${product.name} - 
-                    R$ ${product.price} - 
-                    ${url}'`
+                    ${formatReal(Number(product.price))} - 
+                    ${url} '`
         )
     }
   
@@ -61,8 +62,9 @@ const Biquini = ( {product}: ContentPros) => {
                         </figure> 
                             <div>
                                 <h1 className="text-2xl">{product.name}</h1>
-                                <h4 className="py-6 text-sm">{product.description}</h4>
-                                <p className="font-semibold mb-2">Tamanhos Disponível</p>
+                                <h4 className="pt-6 pb-2 text-sm">{product.description}</h4>
+                                <span className='text-2xl font-bold'>{formatReal(Number(product.price))}</span>
+                                <p className="font-semibold my-2">Tamanhos Disponível</p>
                                 <div className="flex">
                                     {product.pieceSize && product.pieceSize.map((size, index) => (
                                         size.active === true ? (
