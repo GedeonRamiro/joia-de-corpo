@@ -35,7 +35,7 @@ const Pijama = ( {product}: ContentPros) => {
     
     const openWhatsapp = (product: Product) => {
         const url = window.location.href;
-        window.open(`https://api.whatsapp.com/send?phone=${+5586988493319}
+        window.open(`https://api.whatsapp.com/send?phone=${+5586988493093}
                     &text='Olá, fiquei interessado no produto: 
                     ${product.name} - 
                     ${formatReal(Number(product.price))} - 
