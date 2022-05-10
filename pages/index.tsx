@@ -101,35 +101,6 @@ const Home: NextPage<ContentPros> = ( {slides, products, evaluations} ) => {
       </Head>
       <Header>
         <div className="container mx-auto">   
-          {/*   <div className="carousel w-full">
-              {slides.map((slide, index) =>(
-                 <div id={`item${index + 1}`} className="carousel-item w-full" key={slide.id}>
-                     <Image 
-                        className="sm:rounded-b-lg" 
-                        src={slide.url} 
-                        alt={slide.description} 
-                        width="1550" 
-                        height="700" 
-                        objectFit='cover'
-                        placeholder='blur'
-                        blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mM8J1k1GwAFHAH+8T2VRwAAAABJRU5ErkJggg==' >  
-                      </Image>
-                 </div> 
-              ))}
-            </div> */}
-            
-          {/*   <div className="flex justify-center w-full py-2 gap-2">
-               {slides.map((slide, index) =>(
-                  <a 
-                    onClick={() => setSlideActive(`#item${index + 1}`)} 
-                    href={`#item${index + 1}`} 
-                    key={slide.id} 
-                    className={`w-4 h-4 no-animation sm:btn-xs btn-circle ${slideActive === `#item${index + 1}` ?  'bg-pink-400 border-pink-300 border-2 sm:border-4' : ' bg-gray-200'} `}>
-                   
-                  </a> 
-                ))}
-            </div> */}
-
 
             <div className="carousel w-full">
               {slides.map((slide, index) => (
@@ -161,39 +132,6 @@ const Home: NextPage<ContentPros> = ( {slides, products, evaluations} ) => {
                 </>
               ))}
             </div>    
-
-            
-          {/*   <div className="carousel w-full">
-              <div id="slide1" className="carousel-item relative w-full">
-                <img src="https://api.lorem.space/image/car?w=800&h=200&hash=8B7BCDC2" className="w-full" /> / 
-                <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-                  <a href="#slide4" className="btn btn-circle">❮</a> 
-                  <a href="#slide2" className="btn btn-circle">❯</a>
-                </div>
-              </div> 
-              <div id="slide2" className="carousel-item relative w-full">
-                <img src="https://api.lorem.space/image/car?w=800&h=200&hash=500B67FB" className="w-full" /> / 
-                <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-                  <a href="#slide1" className="btn btn-circle">❮</a> 
-                  <a href="#slide3" className="btn btn-circle">❯</a>
-                </div>
-              </div> 
-              <div id="slide3" className="carousel-item relative w-full">
-                <img src="https://api.lorem.space/image/car?w=800&h=200&hash=A89D0DE6" className="w-full" /> / 
-                <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-                  <a href="#slide2" className="btn btn-circle">❮</a> 
-                  <a href="#slide4" className="btn btn-circle">❯</a>
-                </div>
-              </div> 
-              <div id="slide4" className="carousel-item relative w-full">
-                <img src="https://api.lorem.space/image/car?w=800&h=200&hash=225E6693" className="w-full" /> / 
-                <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-                  <a href="#slide3" className="btn btn-circle">❮</a> 
-                  <a href="#slide1" className="btn btn-circle">❯</a>
-                </div>
-              </div>
-            </div>
-             */}
 
             <div className="hidden sm:grid gap-4 my-0 sm:my-6 mx-4 sm:mx-0 sm:grid-cols-1 md:grid-cols-3">
               <Link href={'/biquini'}>

@@ -6,7 +6,7 @@ import { RiWhatsappFill, RiInstagramFill } from 'react-icons/ri'
 const Footer = () => {
 
     const openWhatsapp = () => {
-        window.open(`https://api.whatsapp.com/send?phone=${+5586988493319}&text=${'Olá, gostaria de saber como posso comprar o produto de vocês.' }`)
+        window.open(`https://api.whatsapp.com/send?phone=${+5586988493093}&text=${'Olá, gostaria de saber como posso comprar o produto de vocês.' }`)
     }
 
     const openInstagram = () => {
@@ -15,7 +15,7 @@ const Footer = () => {
 
     return (
       
-            <footer className="footer footer-center p-10 bg-gray-800 text-primary-content">
+            <footer className="footer footer-center p-10 bg-gray-800 text-primary-content ">
                 <div>
                     <Image src={Logo} alt='Logo' width={60} height={60} />
                     <p className="font-bold">
@@ -25,8 +25,8 @@ const Footer = () => {
                 </div> 
                 <div>
                     <div className="grid grid-flow-col gap-4">
-                       <RiWhatsappFill onClick={openWhatsapp} className='text-3xl cursor-pointer' />
-                       <RiInstagramFill onClick={openInstagram} className='text-3xl cursor-pointer' />
+                       <RiWhatsappFill onClick={openWhatsapp} className='text-3xl hover:text-green-300 cursor-pointer' />
+                       <RiInstagramFill onClick={openInstagram} className='text-3xl hover:text-red-300 cursor-pointer' />
                     </div>
                 </div>
         </footer>
