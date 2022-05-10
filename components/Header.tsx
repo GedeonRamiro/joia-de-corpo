@@ -26,7 +26,7 @@ const Header = ({ children }: LayoutProps) => {
         <div className="drawer h-screen">
             <input id="my-drawer-3" type="checkbox" className="drawer-toggle" /> 
             <div className="flex flex-col drawer-content">
-                <div className="w-full navbar bg-pink-300 ">
+                <div className="w-full navbar bg-pink-300">
                     <div className="container mx-auto">
                         <div className="flex-none sm:hidden ">
                             <label htmlFor="my-drawer-3" className="btn btn-square btn-ghost">
