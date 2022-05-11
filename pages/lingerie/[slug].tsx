@@ -1,6 +1,7 @@
 import { GetServerSideProps } from "next"
 import Head from "next/head"
 import Image from "next/image"
+import { useState } from "react";
 import { RiWhatsappFill } from "react-icons/ri";
 import Header from "../../components/Header"
 import formatReal from "../../utils/FormatCurrent";
@@ -29,12 +30,19 @@ type Product = {
 
 const Lingerie = ( {product}: ContentPros) => {
     
+    const [sizeProduct, setSizeProduct] = useState('')
+     
+    const buttonAction = (size: string) => {
+        setSizeProduct(size)
+    }
+    
     const openWhatsapp = (product: Product) => {
         const url = window.location.href;
         window.open(`https://api.whatsapp.com/send?phone=${+5586988493093}
                     &text='Olá, fiquei interessado no produto: 
                     ${product.name} - 
                     ${formatReal(Number(product.price))} - 
+                    Tamanho: ${sizeProduct} - 
                     ${url} '`
         )
     }
@@ -67,13 +75,14 @@ const Lingerie = ( {product}: ContentPros) => {
                                 <div className="flex">
                                     {product.pieceSize && product.pieceSize.map((size, index) => (
                                         size.active === true ? (
-                                            <div key={index} className="bg-pink-300 w-9 h-9 font-semibold text-gray-800 flex justify-center items-center rounded-md border border-pink-400 text-sm mr-2">{size.size}</div>
+                                            <button onClick={() => buttonAction(size.size)} key={index} className={` ${sizeProduct === size.size ? 'bg-pink-400 border-none' : ''} cursor-pointer w-9 h-9 font-semibold text-gray-800 flex justify-center items-center rounded-md border border-gray-400 text-sm mr-2`}>{size.size}</button>
                                         ) : (
-                                            <div key={index} className="bg-gray-200 w-9 h-9 font-semibold flex text-gray-400 justify-center items-center rounded-md border border-gray-400 text-sm mr-2">{size.size}</div>
+                                            <button key={index} className="bg-gray-200 cursor-default w-9 h-9 font-semibold flex text-gray-400 justify-center items-center rounded-md border border-gray-400 text-sm mr-2">{size.size}</button>
                                         )
                                     ))}
                                 </div>
-                                <button onClick={() => openWhatsapp(product)} className="sm:btn-md btn mt-4 bg-pink-400 hover:bg-pink-500 border-none">
+                                
+                                <button onClick={() => openWhatsapp(product)} className={`sm:btn-md btn mt-4 bg-pink-400 hover:bg-pink-500 border-none ${sizeProduct ? '' : 'btn-disabled'}`}>
                                     <RiWhatsappFill className="text-2xl mr-2" />
                                     Fazer pedido
                                 </button> 
