@@ -92,7 +92,6 @@ const Home: NextPage<ContentPros> = ( {slides, products, evaluations} ) => {
     }
   };
 
-  console.log(slides.length)
 
   return (
     <>
@@ -185,7 +184,7 @@ const Home: NextPage<ContentPros> = ( {slides, products, evaluations} ) => {
                       <div className="card-body">
                         <h2 className="text-base font-bold">{product.name}</h2>
                         <p className='font-light text-sm'>{product.description ?.slice(0,50) + '...'}</p>
-                        <span>{formatReal(Number(product.price))}</span>
+                        <span className='text-xl font-bold'>{formatReal(Number(product.price))}</span>
                       </div>
                     </div>
                   </Link>
@@ -215,7 +214,7 @@ const Home: NextPage<ContentPros> = ( {slides, products, evaluations} ) => {
                       <div className="card-body">
                         <h2 className="text-lg font-bold">{product.name}</h2>
                         <p className='font-light text-sm'>{product.description ?.slice(0,50) + '...'}</p>
-                        <span>{formatReal(Number(product.price))}</span>
+                        <span className='text-xl font-bold'>{formatReal(Number(product.price))}</span>
                       </div>
                     </div>
                   </Link>   
@@ -244,7 +243,7 @@ const Home: NextPage<ContentPros> = ( {slides, products, evaluations} ) => {
                         <div className="card-body">
                           <h2 className="text-lg font-bold">{product.name}</h2>
                           <p className='font-light text-sm'>{product.description ?.slice(0,50) + '...'}</p>
-                          <span>{formatReal(Number(product.price))}</span>
+                          <span className='text-xl font-bold'>{formatReal(Number(product.price))}</span>
                         </div>
                     </div>
                   </Link>
